@@ -1,46 +1,59 @@
 const dev = {
-  STRIPE_KEY: "pk_test_v1amvR35uoCNduJfkqGB8RLD",
+  STRIPE_KEY: "sk_test_51HeaQyBbsavKS9iZr3yMt5Ih2RTXKYXi5kwKrFMKKyhPHeft4CMtI49XrqLJT2EcFWZUeXRrtvzEawTn1ynJoCTF00mURMZCyr",
   s3: {
-    REGION: "us-east-1",
-    BUCKET: "notes-app-2-api-dev-attachmentsbucket-qvdowkch2uj1"
+    REGION: "ap-northeast-2",
+    BUCKET: "dev-notes-infra-s3-uploads4f6eb0fd-8faddvf87o6x"
   },
   apiGateway: {
-    REGION: "us-east-1",
-    URL: "https://api.serverless-stack.seed-demo.club/dev"
+    REGION: "ap-northeast-2",
+    URL: "https://w40nmlig33.execute-api.ap-northeast-2.amazonaws.com/dev"
   },
   cognito: {
-    REGION: "us-east-1",
-    USER_POOL_ID: "us-east-1_f8l0OHPtp",
-    APP_CLIENT_ID: "5r5o292r1n7s2vgje5u5c7vpq0",
-    IDENTITY_POOL_ID: "us-east-1:b718098b-fe72-410b-b4c6-0750f9135672"
+    REGION: "ap-northeast-2",
+    USER_POOL_ID: "ap-northeast-2_GvfxDyzcE",
+    APP_CLIENT_ID: "29c3v27pe3feueo03vt6hn09hb",
+    IDENTITY_POOL_ID: "ap-northeast-2:70774f41-561f-4036-8e87-ea49f8d5edcb"
   }
 };
 
 const prod = {
-  STRIPE_KEY: "pk_test_v1amvR35uoCNduJfkqGB8RLD",
+  STRIPE_KEY: "sk_test_51HeaQyBbsavKS9iZr3yMt5Ih2RTXKYXi5kwKrFMKKyhPHeft4CMtI49XrqLJT2EcFWZUeXRrtvzEawTn1ynJoCTF00mURMZCyr",
   s3: {
-    REGION: "us-east-1",
-    BUCKET: "notes-app-2-api-prod-attachmentsbucket-1v9w7kkxnznb7"
+    REGION: "ap-northeast-2",
+    BUCKET: "prod-notes-infra-s3-uploads4f6eb0fd-18aaqhe346cx7"
   },
   apiGateway: {
-    REGION: "us-east-1",
-    URL: "https://api.serverless-stack.seed-demo.club/prod"
+    REGION: "ap-northeast-2",
+    URL: "https://s906f9fqfb.execute-api.ap-northeast-2.amazonaws.com/prod"
   },
   cognito: {
-    REGION: "us-east-1",
-    USER_POOL_ID: "us-east-1_mLbfKylhm",
-    APP_CLIENT_ID: "mli2vaupiq3ga29m4698m6mrl",
-    IDENTITY_POOL_ID: "us-east-1:4e377eff-0617-4098-b218-673490ffab8d"
+    REGION: "ap-northeast-2",
+    USER_POOL_ID: "ap-northeast-2_dgbiFsVm8",
+    APP_CLIENT_ID: "f6uefuih4j5udbsfdvcoi8r5s",
+    IDENTITY_POOL_ID: "ap-northeast-2:79af1a52-65c7-4901-af05-8fba30701fdb"
   }
 };
 
 // Default to dev if not set
-const config = process.env.REACT_APP_STAGE === 'prod'
+const config = process.env.REACT_APP_STAGE === 'dev'
   ? prod
   : dev;
 
-export default {
-  // Add common config values here
-  MAX_ATTACHMENT_SIZE: 5000000,
-  ...config
-};
+  export default {
+    STRIPE_KEY: "pk_test_51HeaQyBbsavKS9iZJUFJixEOdini7BwE26ydXBSYYhMundqSF9Id4l9IW4Iz8u7sJArE4JP7KyE4dXgu76rbmnvS00zK2bF9AX",
+    MAX_ATTACHMENT_SIZE: 5000000,
+    s3: {
+      REGION: "ap-northeast-2",
+      BUCKET: "dev-notes-infra-s3-uploads4f6eb0fd-8faddvf87o6x"
+    },
+    apiGateway: {
+      REGION: "ap-northeast-2",
+      URL: "https://w40nmlig33.execute-api.ap-northeast-2.amazonaws.com/dev"
+    },
+    cognito: {
+      REGION: "ap-northeast-2",
+      USER_POOL_ID: "ap-northeast-2_GvfxDyzcE",
+      APP_CLIENT_ID: "29c3v27pe3feueo03vt6hn09hb",
+      IDENTITY_POOL_ID: "ap-northeast-2:70774f41-561f-4036-8e87-ea49f8d5edcb"
+    }
+  };

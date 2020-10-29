@@ -1,29 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Amplify } from 'aws-amplify';
+//import { Amplify } from 'aws-amplify';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import config from './config';
 import { initSentry } from './libs/errorLib';
 import * as serviceWorker from './serviceWorker';
+import Amplify from "aws-amplify";
 
 initSentry();
 
 Amplify.configure({
-  Auth: {
+  Auth: {         //cognito
     mandatorySignIn: true,
     region: config.cognito.REGION,
     userPoolId: config.cognito.USER_POOL_ID,
     identityPoolId: config.cognito.IDENTITY_POOL_ID,
     userPoolWebClientId: config.cognito.APP_CLIENT_ID
   },
-  Storage: {
+  Storage: {      //s3
     region: config.s3.REGION,
     bucket: config.s3.BUCKET,
     identityPoolId: config.cognito.IDENTITY_POOL_ID
   },
-  API: {
+  API: {          //API Gateway
     endpoints: [
       {
         name: "notes",

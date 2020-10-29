@@ -1,11 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
-import { API, Storage } from "aws-amplify";
 import { useParams, useHistory } from "react-router-dom";
+import { API, Storage } from "aws-amplify";
+import { onError } from "../libs/errorLib";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
-import { onError } from "../libs/errorLib";
-import { s3Upload } from "../libs/awsLib";
 import config from "../config";
+import { s3Upload } from "../libs/awsLib";
 import "./Notes.css";
 
 export default function Notes() {
@@ -58,12 +58,12 @@ export default function Notes() {
       body: note
     });
   }
-
+  
   async function handleSubmit(event) {
     let attachment;
-
+  
     event.preventDefault();
-
+  
     if (file.current && file.current.size > config.MAX_ATTACHMENT_SIZE) {
       alert(
         `Please pick a file smaller than ${
@@ -72,14 +72,14 @@ export default function Notes() {
       );
       return;
     }
-
+  
     setIsLoading(true);
-
+  
     try {
       if (file.current) {
         attachment = await s3Upload(file.current);
       }
-
+  
       await saveNote({
         content,
         attachment: attachment || note.attachment
@@ -94,20 +94,20 @@ export default function Notes() {
   function deleteNote() {
     return API.del("notes", `/notes/${id}`);
   }
-
+  
   async function handleDelete(event) {
     event.preventDefault();
-
+  
     const confirmed = window.confirm(
       "Are you sure you want to delete this note?"
     );
-
+  
     if (!confirmed) {
       return;
     }
-
+  
     setIsDeleting(true);
-
+  
     try {
       await deleteNote();
       history.push("/");

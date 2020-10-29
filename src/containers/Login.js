@@ -1,15 +1,15 @@
 import React, { useState } from "react";
+import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import "./Login.css";
 import { Auth } from "aws-amplify";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import LoaderButton from "../components/LoaderButton";
 import { useAppContext } from "../libs/contextLib";
 import { useFormFields } from "../libs/hooksLib";
+import LoaderButton from "../components/LoaderButton";
 import { onError } from "../libs/errorLib";
-import "./Login.css";
 
 export default function Login() {
-  const { userHasAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
+  const { userHasAuthenticated } = useAppContext();
   const [fields, handleFieldChange] = useFormFields({
     email: "",
     password: ""
@@ -21,14 +21,15 @@ export default function Login() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-
     setIsLoading(true);
-
     try {
       await Auth.signIn(fields.email, fields.password);
       userHasAuthenticated(true);
+      alert("Logged in");
     } catch (e) {
       onError(e);
+      fields.email = "";
+      fields.password = "";
       setIsLoading(false);
     }
   }
@@ -48,9 +49,9 @@ export default function Login() {
         <FormGroup controlId="password" bsSize="large">
           <ControlLabel>Password</ControlLabel>
           <FormControl
-            type="password"
             value={fields.password}
             onChange={handleFieldChange}
+            type="password"
           />
         </FormGroup>
         <LoaderButton

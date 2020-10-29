@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { API } from "aws-amplify";
 import { useHistory } from "react-router-dom";
-import { Elements, StripeProvider } from "react-stripe-elements";
-import BillingForm from "../components/BillingForm";
+import { API } from "aws-amplify";
 import { onError } from "../libs/errorLib";
 import config from "../config";
+import { Elements, StripeProvider } from "react-stripe-elements";
+import BillingForm from "../components/BillingForm";
 import "./Settings.css";
 
 export default function Settings() {
   const history = useHistory();
-  const [stripe, setStripe] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [stripe, setStripe] = useState(null);
 
   useEffect(() => {
     setStripe(window.Stripe(config.STRIPE_KEY));
@@ -27,15 +27,15 @@ export default function Settings() {
       onError(error);
       return;
     }
-
+  
     setIsLoading(true);
-
+  
     try {
       await billUser({
         storage,
         source: token.id
       });
-
+  
       alert("Your card has been charged successfully!");
       history.push("/");
     } catch (e) {
@@ -43,7 +43,7 @@ export default function Settings() {
       setIsLoading(false);
     }
   }
-
+  
   return (
     <div className="Settings">
       <StripeProvider stripe={stripe}>
